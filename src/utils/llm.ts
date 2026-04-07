@@ -10,7 +10,7 @@ import { MODEL, RETRY_COUNT, RETRY_BASE_MS, RETRY_MULTIPLIER } from "./constants
 let client: Anthropic | null = null;
 
 /** Get or create the Anthropic client singleton. */
-export function getClient(): Anthropic {
+function getClient(): Anthropic {
   if (!client) {
     client = new Anthropic();
   }

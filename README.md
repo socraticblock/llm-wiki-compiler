@@ -70,7 +70,7 @@ a knowledge base into a target language that supports efficient queries.
 Related concepts: [[Propositional Logic]], [[Model Counting]]
 ```
 
-Pages include source attribution in frontmatter. Provenance is page-level today, not claim-level.
+Pages include source attribution in frontmatter. Paragraphs are annotated with `^[filename.md]` markers pointing back to the source file that contributed the content.
 
 ## Commands
 
@@ -80,6 +80,7 @@ Pages include source attribution in frontmatter. Provenance is page-level today,
 | `llmwiki compile` | Incremental compile: extract concepts, generate wiki pages |
 | `llmwiki query "question"` | Ask questions against your compiled wiki |
 | `llmwiki query "question" --save` | Answer and save the result as a wiki page |
+| `llmwiki lint` | Check wiki quality (broken links, orphans, empty pages, etc.) |
 | `llmwiki watch` | Auto-recompile when `sources/` changes |
 
 ## Output
@@ -108,7 +109,7 @@ See `examples/basic/` in the repo for pre-generated output you can browse withou
 
 ## Limitations
 
-Early software. Best for small, high-signal corpora (a few dozen sources). Query routing is index-based. Provenance is page-level, not claim-level. Anthropic-only for now.
+Early software. Best for small, high-signal corpora (a few dozen sources). Query routing is index-based. Anthropic-only for now.
 
 **Honest about truncation.** Sources that exceed the character limit are truncated on ingest with `truncated: true` and the original character count recorded in frontmatter, so downstream consumers know they're working with partial content.
 
@@ -123,18 +124,19 @@ Karpathy describes an abstract pattern for turning raw data into compiled knowle
 | Q&A | `llmwiki query` | Implemented |
 | Output filing (save answers back) | `llmwiki query --save` | Implemented |
 | Auto-recompile | `llmwiki watch` | Implemented |
-| Linting / health-check pass | — | Not yet implemented (`watch` is auto-recompile, not lint) |
+| Linting / health-check pass | `llmwiki lint` | Implemented |
 | Image support | — | Not yet implemented |
 | Marp slides | — | Not yet implemented |
 | Fine-tuning | — | Not yet implemented |
 
 ## Roadmap
 
+- ✅ Better provenance (paragraph-level source attribution)
+- ✅ Linting pass for wiki quality checks
 - Multi-provider support (OpenAI, local models)
-- Better provenance (claim-level source attribution)
 - Larger-corpus query strategy (semantic search, embeddings)
 - Deeper Obsidian integration
-- Linting pass for wiki quality checks
+- MCP server for agent integration
 
 If you want to contribute, these are the highest-leverage areas right now. Issues and PRs are welcome.
 

@@ -33,7 +33,7 @@ export interface SourceChange {
 }
 
 /** Wiki page frontmatter parsed from YAML. */
-export interface WikiFrontmatter {
+interface WikiFrontmatter {
   title: string;
   sources: string[];
   summary: string;

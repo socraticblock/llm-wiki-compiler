@@ -38,10 +38,6 @@ export function error(text: string): string {
   return `${RED}${text}${RESET}`;
 }
 
-export function concept(text: string): string {
-  return `${MAGENTA}${BOLD}${text}${RESET}`;
-}
-
 export function source(text: string): string {
   return `${CYAN}${text}${RESET}`;
 }
