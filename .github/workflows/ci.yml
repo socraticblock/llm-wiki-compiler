@@ -31,7 +31,7 @@ jobs:
       - uses: fallow-rs/fallow@v2
         with:
           format: sarif
-          fail-on-issues: false
+          fail-on-issues: true
       - uses: github/codeql-action/upload-sarif@v4
         if: always()
         with:
