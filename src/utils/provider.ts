@@ -10,6 +10,7 @@ import { DEFAULT_PROVIDER, PROVIDER_MODELS, OLLAMA_DEFAULT_HOST } from "./consta
 import { AnthropicProvider } from "../providers/anthropic.js";
 import { OpenAIProvider } from "../providers/openai.js";
 import { OllamaProvider } from "../providers/ollama.js";
+import { MiniMaxProvider } from "../providers/minimax.js";
 
 /** A single message in an LLM conversation. */
 export interface LLMMessage {
@@ -41,7 +42,7 @@ export interface LLMProvider {
   ): Promise<string>;
 }
 
-const SUPPORTED_PROVIDERS: ReadonlySet<string> = new Set(["anthropic", "openai", "ollama"]);
+const SUPPORTED_PROVIDERS: ReadonlySet<string> = new Set(["anthropic", "openai", "ollama", "minimax"]);
 
 /**
  * Factory that returns the appropriate LLMProvider based on env vars.
@@ -71,6 +72,15 @@ export function getProvider(): LLMProvider {
         model,
         process.env.OLLAMA_HOST ?? OLLAMA_DEFAULT_HOST,
       );
+    case "minimax": {
+      const apiKey = process.env.LLMWIKI_API_KEY;
+      if (!apiKey) {
+        throw new Error(
+          "MiniMax provider requires LLMWIKI_API_KEY environment variable.\n  Set it with: export LLMWIKI_API_KEY=your_key",
+        );
+      }
+      return new MiniMaxProvider(model, apiKey);
+    }
     default:
       throw new Error(`Unhandled provider: ${providerName}`);
   }
